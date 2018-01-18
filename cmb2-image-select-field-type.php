@@ -100,7 +100,7 @@ class PR_CMB2_Image_Select_Field {
 
 	$updater = new Github_Updater( __FILE__ );
 	$updater->set_username( 'monecchi' );
-	$updater->set_repository( 'FoodStack-Framework' ); 
+	$updater->set_repository( 'cmb2-image-select-field-type' ); 
 
 	/* Access Token for private repo */
 	//$updater->authorize( '' ); // Your auth code goes here for private repos
