@@ -26,12 +26,14 @@ class PR_CMB2_Image_Select_Field {
 	 * Initialize the plugin by hooking into CMB2
 	 */
 	public function __construct() {
-	    add_action( 'init', array( $this, 'init_setup' ), 10, 5 );
+	    add_action( 'init', array( $this, 'init_setup' ), 10, 1 );
 		add_action( 'cmb2_render_image_select', array( $this, 'cmb2_render_image_select' ), 10, 5 );
+		add_action( 'plugins_loaded', array( $this, 'setup_plugin_updater' ), 10, 1 );
+
 	}
 
 	/**
-	 * Setup Scripts
+	 * Setup Scripts 
 	 */
 	public function init_setup() {
 
@@ -74,7 +76,30 @@ class PR_CMB2_Image_Select_Field {
 
 		echo $image_select;
 	}
-	
+
+
+
+	/**
+	 * Github Plugin Updater
+	 */
+
+	public function setup_plugin_updater() {
+
+		if( ! class_exists( 'Github_Updater' ) ) {
+			include_once( plugin_dir_path( __FILE__ ) . 'git-updater.php' );
+		}
+
+		$updater = new Github_Updater( __FILE__ );
+		$updater->set_username( 'monecchi' );
+		$updater->set_repository( 'cmb2-image-select-field-type' ); 
+
+		/* Access Token for private repo */
+		//$updater->authorize( '' ); // Your auth code goes here for private repos
+
+		$updater->initialize();
+
+	}
+
 
 	/**
 	 * Enqueue scripts and styles
@@ -90,22 +115,6 @@ class PR_CMB2_Image_Select_Field {
 		wp_enqueue_script( 'cmb2_imgselect-js', $asset_path . '/js/image_select_metafield.js', array( 'cmb2-scripts' ), self::VERSION ); // CMB2 Image_select Event
 
 	}
-
-	/**
-	 * Github Plugin Updater
-	 */
-	if( ! class_exists( 'Github_Updater' ) ) {
-		include_once( plugin_dir_path( __FILE__ ) . 'git-updater.php' );
-	}
-
-	$updater = new Github_Updater( __FILE__ );
-	$updater->set_username( 'monecchi' );
-	$updater->set_repository( 'cmb2-image-select-field-type' ); 
-
-	/* Access Token for private repo */
-	//$updater->authorize( '' ); // Your auth code goes here for private repos
-
-	$updater->initialize();
 
 }
 
