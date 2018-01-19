@@ -50,8 +50,8 @@ class PR_CMB2_Image_Select_Field {
 			$field_type_object->type = new PR_CMB2_Image_Select_Field( $field_type_object );
 		}
 
-		$conditional_value =(isset($field->args['attributes']['data-conditional-value'])?'data-conditional-value="' .esc_attr($field->args['attributes']['data-conditional-value']).'"':'');
-		$conditional_id =(isset($field->args['attributes']['data-conditional-id'])?' data-conditional-id="'.esc_attr($field->args['attributes']['data-conditional-id']).'"':'');
+		$conditional_value =(isset($field->args['attributes']['data-conditional-value'])?'data-conditional-value="'.esc_attr($field->args['attributes']['data-conditional-value']).'"':'');
+		$conditional_id =(isset($field->args['attributes']['data-conditional-id'])?'data-conditional-id="'.esc_attr($field->args['attributes']['data-conditional-id']).'"':'');
 
 		$default_value = $field->args['attributes']['default'];  
 
