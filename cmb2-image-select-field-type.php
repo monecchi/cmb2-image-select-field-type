@@ -108,12 +108,15 @@ class PR_CMB2_Image_Select_Field {
 
 		$asset_path = apply_filters( 'pr_cmb2_image_select_asset_path', plugins_url( '', __FILE__  ) );
 
+		if (is_admin()) {
+
         wp_register_style( 'cmb2_imgselect-css', $asset_path . '/css/image_select_metafield.css', array(), '1.0.0' );
 		wp_enqueue_style( 'cmb2_imgselect-css', $asset_path . '/css/image_select_metafield.css', array(), self::VERSION ); // CMB2 Image_select Field Styling
 
         wp_register_script( 'cmb2_imgselect-js', $asset_path . '/js/image_select_metafield.js', array(), '1.0.0' );
 		wp_enqueue_script( 'cmb2_imgselect-js', $asset_path . '/js/image_select_metafield.js', array( 'cmb2-scripts' ), self::VERSION ); // CMB2 Image_select Event
 
+		}
 	}
 
 }
