@@ -6,7 +6,7 @@ class Github_Updater {
 
 	private $file;
 
-	private $this_plugin;
+	private $plugin;
 
 	private $basename;
 
@@ -92,24 +92,24 @@ class Github_Updater {
 					$slug = current( explode('/', $this->basename ) ); // Create valid slug
 
 					// Setup plugin icons
-					$this_plugin['icons'] = array();
+					$plugin['icons'] = array();
 
-					$icons = array(
-						'svg' => plugins_url( 'assets/icon.svg', __FILE__ ),
-						'1x'  => plugins_url( 'assets/icon-128x128.png', __FILE__ ),
-						'2x'  => plugins_url( 'assets/icon-256x256.png', __FILE__ )
+					$plugin_icons = array(
+						'svg' => plugin_dir_url( __FILE__ ) . 'assets/icon.svg' ), 
+						'1x'  => plugin_dir_url( __FILE__ ) . 'assets/icon-128x128.png' ), 
+						'2x'  => plugin_dir_url( __FILE__ ) . 'assets/icon-256x256.png' )
 					);
 
 					// Setup our plugin info
-					$this_plugin = array(
-						'url' => $this->plugin["PluginURI"],
+					$plugin = array(
+						'url' => $this->plugin['PluginURI'],
 						'slug' => $slug,
-      				    'icons' => $icons,
+      				    'icons' => $plugin_icons,
 						'package' => $new_files,
 						'new_version' => $this->github_response['tag_name']
 					);
 
-					$transient->response[$this->basename] = (object) $this_plugin; // Return it in response
+					$transient->response[$this->basename] = (object) $plugin; // Return it in response
 				}
 			}
 		}
@@ -126,8 +126,8 @@ class Github_Updater {
 				$this->get_repository_info(); // Get our repo info
 
 				// Set it to an array
-				$this_plugin = array(
-					'name'				=> $this->plugin["Name"],
+				$plugin = array(
+					'name'				=> $this->plugin['Name'],
 					'slug'				=> $this->basename,
 					'requires'			=> '3.8.0',
 					'tested'			=> '4.9.2',
@@ -136,23 +136,23 @@ class Github_Updater {
 					'downloaded'		=> $this->github_response['download_count'],
 					'added'				=> $this->github_response['created_at'], //'2017-12-15',
 					'version'			=> $this->github_response['tag_name'],
-					'author'			=> $this->plugin["AuthorName"],
-					'author_profile'	=> $this->plugin["AuthorURI"],
+					'author'			=> $this->plugin['AuthorName'],
+					'author_profile'	=> $this->plugin['AuthorURI'],
 					'last_updated'		=> $this->github_response['published_at'],
-					'homepage'			=> $this->plugin["PluginURI"],
-					'short_description' => $this->plugin["Description"],
+					'homepage'			=> $this->plugin['PluginURI'],
+					'short_description' => $this->plugin['Description'],
 					'sections'			=> array(
-						'Description'	=> $this->plugin["Description"],
+						'Description'	=> $this->plugin['Description'],
 						'Updates'		=> $this->github_response['body'],
 					),
 					'banners'			=> array(
-                  		'low'			=> plugins_url( 'assets/banner-772x250.png', __FILE__ ),
-                  		'high'			=> plugins_url( 'assets/banner-1544x500.png', __FILE__ )
+                  		'low'			=> plugin_dir_url( __FILE__ ) . 'assets/banner-772x250.png' ),
+                  		'high'			=> plugin_dir_url( __FILE__ ) . 'assets/banner-1544x500.png' )
       				),
 					'download_link'		=> $this->github_response['zipball_url']
 				);
 
-				return (object) $this_plugin; // Return the data
+				return (object) $plugin; // Return the data
 			}
 
 		}
