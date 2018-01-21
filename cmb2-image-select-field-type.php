@@ -4,7 +4,7 @@ Plugin Name: CMB2 Image Select Field Type
 Plugin URI: https://github.com/monecchi/cmb2-image-select-field-type
 GitHub Plugin URI: https://github.com/monecchi/cmb2-image-select-field-type
 Description: Image Select field type for CMB2.
-Version: 1.0.3
+Version: 1.0.4
 Author: Adriano Monecchi
 Author URI: https://twitter.com/dico_monecchi/
 Contributors: designroom
@@ -20,7 +20,7 @@ class PR_CMB2_Image_Select_Field {
 	/**
 	 * Current version number
 	 */
-	const VERSION = '1.0.3';
+	const VERSION = '1.0.4';
 
 	/**
 	 * Initialize the plugin by hooking into CMB2
