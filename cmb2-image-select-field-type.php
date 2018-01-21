@@ -87,6 +87,9 @@ class PR_CMB2_Image_Select_Field {
 
 		if( ! class_exists( 'Github_Updater' ) ) {
 			include_once( plugin_dir_path( __FILE__ ) . 'git-updater.php' );
+
+			// GitHub markdown parser for release notes, include the parser
+		    require_once( plugin_dir_path( __FILE__ ) . 'Parsedown.php' );
 		}
 
 		$updater = new Github_Updater( __FILE__ );

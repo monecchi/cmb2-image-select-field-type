@@ -6,7 +6,7 @@ class Github_Updater {
 
 	private $file;
 
-	private $plugin;
+	private $this_plugin;
 
 	private $basename;
 
@@ -92,7 +92,7 @@ class Github_Updater {
 					$slug = current( explode('/', $this->basename ) ); // Create valid slug
 
 					// Setup plugin icons
-					$plugin['icons'] = array();
+					$this_plugin['icons'] = array();
 
 					$icons = array(
 						'svg' => plugins_url( 'assets/icon.svg', __FILE__ ),
@@ -101,7 +101,7 @@ class Github_Updater {
 					);
 
 					// Setup our plugin info
-					$plugin = array(
+					$this_plugin = array(
 						'url' => $this->plugin["PluginURI"],
 						'slug' => $slug,
       				    'icons' => $icons,
@@ -109,7 +109,7 @@ class Github_Updater {
 						'new_version' => $this->github_response['tag_name']
 					);
 
-					$transient->response[$this->basename] = (object) $plugin; // Return it in response
+					$transient->response[$this->basename] = (object) $this_plugin; // Return it in response
 				}
 			}
 		}
@@ -126,14 +126,14 @@ class Github_Updater {
 				$this->get_repository_info(); // Get our repo info
 
 				// Set it to an array
-				$plugin = array(
+				$this_plugin = array(
 					'name'				=> $this->plugin["Name"],
 					'slug'				=> $this->basename,
 					'requires'			=> '3.8.0',
 					'tested'			=> '4.9.2',
 					'rating'			=> '100.0',
-					'num_ratings'		=> '10823',
-					'downloaded'		=> '14249',
+					'num_ratings'		=> '226',
+					'downloaded'		=> $this->github_response['download_count'],
 					'added'				=> $this->github_response['created_at'], //'2017-12-15',
 					'version'			=> $this->github_response['tag_name'],
 					'author'			=> $this->plugin["AuthorName"],
@@ -152,7 +152,7 @@ class Github_Updater {
 					'download_link'		=> $this->github_response['zipball_url']
 				);
 
-				return (object) $plugin; // Return the data
+				return (object) $this_plugin; // Return the data
 			}
 
 		}
