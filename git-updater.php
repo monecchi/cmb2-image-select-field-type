@@ -55,17 +55,17 @@ class Github_Updater {
 	            $request_uri = add_query_arg( 'access_token', $this->authorize_token, $request_uri ); // Append it
 	        }
 
-	        $response = json_decode( wp_remote_retrieve_body( wp_remote_get( $request_uri ) ), true ); // Get JSON and parse it
+	        $git_response = json_decode( wp_remote_retrieve_body( wp_remote_get( $request_uri ) ), true ); // Get JSON and parse it
 
-	        if( is_array( $response ) ) { // If it is an array
-	            $response = current( $response ); // Get the first item
+	        if( is_array( $git_response ) ) { // If it is an array
+	            $git_response = current( $git_response ); // Get the first item
 	        }
 
 	        if( $this->authorize_token ) { // Is there an access token?
-	            $response['zipball_url'] = add_query_arg( 'access_token', $this->authorize_token, $response['zipball_url'] ); // Update our zip url with token
+	            $git_response['zipball_url'] = add_query_arg( 'access_token', $this->authorize_token, $git_response['zipball_url'] ); // Update our zip url with token
 	        }
 
-	        $this->github_response = $response; // Set it to our property
+	        $this->github_response = $git_response; // Set it to our property
 	    }
 	}
 
@@ -95,9 +95,9 @@ class Github_Updater {
 					$plugin['icons'] = array();
 
 					$plugin_icons = array(
-						'svg' => plugin_dir_url( __FILE__ ) . 'assets/icon.svg', 
-						'1x'  => plugin_dir_url( __FILE__ ) . 'assets/icon-128x128.png', 
-						'2x'  => plugin_dir_url( __FILE__ ) . 'assets/icon-256x256.png',
+						'svg' => plugin_dir_url( __FILE__ ) . 'assets/'.$slug.'-icon.svg', 
+						'1x'  => plugin_dir_url( __FILE__ ) . 'assets/'.$slug.'-icon-128x128.png', 
+						'2x'  => plugin_dir_url( __FILE__ ) . 'assets/'.$slug.'-icon-256x256.png',
 					);
 
 					// Setup our plugin info
@@ -129,10 +129,10 @@ class Github_Updater {
 				$plugin = array(
 					'name'				=> $this->plugin['Name'],
 					'slug'				=> $this->basename,
-					'requires'			=> '3.8.0',
-					'tested'			=> '4.9.2',
-					'rating'			=> '100.0',
-					'num_ratings'		=> '226',
+					'requires'			=> "3.8.0",
+					'tested'			=> "4.9.2",
+					'rating'			=> "100",
+					'num_ratings'		=> "226",
 					'downloaded'		=> $this->github_response['download_count'],
 					'added'				=> $this->github_response['created_at'], //'2017-12-15',
 					'version'			=> $this->github_response['tag_name'],
@@ -142,12 +142,12 @@ class Github_Updater {
 					'homepage'			=> $this->plugin['PluginURI'],
 					'short_description' => $this->plugin['Description'],
 					'sections'			=> array(
-						'Description'	=> $this->plugin['Description'],
-						'Updates'		=> $this->github_response['body'],
+						'description'	=> class_exists( 'Parsedown' ) ? Parsedown::instance()->parse( plugin_dir_url( __FILE__ ) . 'readme.txt' ) : $this->github_response['body'], 
+						'changelog'		=> class_exists( 'Parsedown' ) ? Parsedown::instance()->parse( '<h3>' . $this->github_response['name'] . '</h3>' . '<br>' . $this->github_response['body'] ),
 					),
 					'banners'			=> array(
-                  		'low'			=> plugin_dir_url( __FILE__ ) . 'assets/banner-772x250.png',
-                  		'high'			=> plugin_dir_url( __FILE__ ) . 'assets/banner-1544x500.png',
+                  		'low'			=> plugin_dir_url( __FILE__ ) . 'assets/'.$slug.'-banner-772x250.png',
+                  		'high'			=> plugin_dir_url( __FILE__ ) . 'assets/'.$slug.'-banner-1544x500.png',
       				),
 					'download_link'		=> $this->github_response['zipball_url']
 				);
@@ -159,7 +159,8 @@ class Github_Updater {
 		return $result; // Otherwise return default
 	}
 
-	public function after_install( $response, $hook_extra, $result ) {
+
+	public function after_install( $git_response, $hook_extra, $result ) {
 		global $wp_filesystem; // Get global FS object
 
 		$install_directory = plugin_dir_path( $this->file ); // Our plugin directory

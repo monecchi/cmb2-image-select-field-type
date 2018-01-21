@@ -4,7 +4,7 @@ Plugin Name: CMB2 Image Select Field Type
 Plugin URI: https://github.com/monecchi/cmb2-image-select-field-type
 GitHub Plugin URI: https://github.com/monecchi/cmb2-image-select-field-type
 Description: Image Select field type for CMB2.
-Version: 1.0.4
+Version: 1.0.5
 Author: Adriano Monecchi
 Author URI: https://twitter.com/dico_monecchi/
 Contributors: designroom
@@ -20,7 +20,7 @@ class PR_CMB2_Image_Select_Field {
 	/**
 	 * Current version number
 	 */
-	const VERSION = '1.0.4';
+	const VERSION = '1.0.5';
 
 	/**
 	 * Initialize the plugin by hooking into CMB2
@@ -62,8 +62,8 @@ class PR_CMB2_Image_Select_Field {
 			$selected = ( $value === ( $escaped_value =='' ? $default_value : $escaped_value ) ) ? 'checked="checked"' : '';
 
 			$image_select .= '<li class="cmb2-image-select '.($selected!= ''?'cmb2-image-select-selected':'').'">
-				<label for="' . $field->args['_id'] . esc_attr( $value ) . '">
-				<input '.$conditional_value.$conditional_id.' type="radio" id="'. $field->args['_id'] . esc_attr( $value ) . '" name="' . $field->args['_name'] . '" value="' . esc_attr( $value ) . '" ' . $selected . ' class="cmb2-option"><img class="" style=" width: auto; " alt="' . $item['alt'] . '" src="' . $item['img'] . '">
+				<label for="' . $field->args['_id'] . esc_attr( $value ) . '" class="' . $item['class'] . '">
+				<input '.$conditional_value.$conditional_id.' type="radio" id="'. $field->args['_id'] . esc_attr( $value ) . '" name="' . $field->args['_name'] . '" value="' . esc_attr( $value ) . '" ' . $selected . ' class="cmb2-option"><img class="' . $item['class'] . '" style=" width: auto; " alt="' . $item['alt'] . '" src="' . $item['img'] . '">
 				<br>
 				<span>' . esc_html( $item['title'] ) . '</span>
 				</label>
@@ -87,6 +87,9 @@ class PR_CMB2_Image_Select_Field {
 
 		if( ! class_exists( 'Github_Updater' ) ) {
 			include_once( plugin_dir_path( __FILE__ ) . 'git-updater.php' );
+
+			// GitHub markdown parser for release notes, include the parser
+    		require_once( plugin_dir_path( __FILE__ ) . '/includes/Parsedown.php' );
 		}
 
 		$updater = new Github_Updater( __FILE__ );
