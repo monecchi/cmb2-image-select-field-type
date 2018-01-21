@@ -95,9 +95,9 @@ class Github_Updater {
 					$plugin['icons'] = array();
 
 					$plugin_icons = array(
-						'svg' => plugin_dir_url( __FILE__ ) . 'assets/icon.svg' ), 
-						'1x'  => plugin_dir_url( __FILE__ ) . 'assets/icon-128x128.png' ), 
-						'2x'  => plugin_dir_url( __FILE__ ) . 'assets/icon-256x256.png' )
+						'svg' => plugin_dir_url( __FILE__ ) . 'assets/icon.svg', 
+						'1x'  => plugin_dir_url( __FILE__ ) . 'assets/icon-128x128.png', 
+						'2x'  => plugin_dir_url( __FILE__ ) . 'assets/icon-256x256.png',
 					);
 
 					// Setup our plugin info
@@ -146,8 +146,8 @@ class Github_Updater {
 						'Updates'		=> $this->github_response['body'],
 					),
 					'banners'			=> array(
-                  		'low'			=> plugin_dir_url( __FILE__ ) . 'assets/banner-772x250.png' ),
-                  		'high'			=> plugin_dir_url( __FILE__ ) . 'assets/banner-1544x500.png' )
+                  		'low'			=> plugin_dir_url( __FILE__ ) . 'assets/banner-772x250.png',
+                  		'high'			=> plugin_dir_url( __FILE__ ) . 'assets/banner-1544x500.png',
       				),
 					'download_link'		=> $this->github_response['zipball_url']
 				);
