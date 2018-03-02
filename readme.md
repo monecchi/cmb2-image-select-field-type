@@ -52,7 +52,7 @@ Install it as an ordinary WordPress plugin or include it within your theme's or 
 By choosing this method, it requires you to manually keep the plugin files up to date as you'd no longer get automatic updates. 
 
 <div id="section-screenshots" class="section">
-<img src="https://raw.githubusercontent.com/monecchi/cmb2-image-select-field-type/master/assets/banner-1544x500.png" alt="CMB2 Image_Select Field Type" style="width:100% !important; height:auto;"/>
+<img src="https://raw.githubusercontent.com/monecchi/cmb2-image-select-field-type/master/assets/cmb2-image-select-field-type-banner-1544x500.png" alt="CMB2 Image_Select Field Type" style="width:100% !important; height:auto;"/>
 </div>
 
 ### Tutorial on how to integrate image_select field on a WordPress theme
