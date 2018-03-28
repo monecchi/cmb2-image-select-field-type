@@ -4,7 +4,7 @@ Plugin Name: CMB2 Image Select Field Type
 Plugin URI: https://github.com/monecchi/cmb2-image-select-field-type
 GitHub Plugin URI: https://github.com/monecchi/cmb2-image-select-field-type
 Description: Image Select field type for CMB2.
-Version: 1.0.5
+Version: 1.0.6
 Author: Adriano Monecchi
 Author URI: https://twitter.com/dico_monecchi/
 Contributors: designroom
@@ -20,7 +20,7 @@ class PR_CMB2_Image_Select_Field {
 	/**
 	 * Current version number
 	 */
-	const VERSION = '1.0.5';
+	const VERSION = '1.0.6';
 
 	/**
 	 * Initialize the plugin by hooking into CMB2
@@ -53,6 +53,8 @@ class PR_CMB2_Image_Select_Field {
 		$conditional_value =(isset($field->args['attributes']['data-conditional-value'])?'data-conditional-value="'.esc_attr($field->args['attributes']['data-conditional-value']).'"':'');
 		$conditional_id =(isset($field->args['attributes']['data-conditional-id'])?'data-conditional-id="'.esc_attr($field->args['attributes']['data-conditional-id']).'"':'');
 
+		$classes = (isset($field->args['attributes']['class'])?'class="'.esc_attr($field->args['attributes']['class']).'"':'');
+
 		$default_value = $field->args['attributes']['default'];  
 
 		$image_select = '<ul id="cmb2-image-select'.$field->args['_id'].'" class="cmb2-image-select-list">';
@@ -61,10 +63,11 @@ class PR_CMB2_Image_Select_Field {
 
 			$selected = ( $value === ( $escaped_value =='' ? $default_value : $escaped_value ) ) ? 'checked="checked"' : '';
 
-			$image_select .= '<li class="cmb2-image-select '.($selected!= ''?'cmb2-image-select-selected':'').'">
-				<label for="' . $field->args['_id'] . esc_attr( $value ) . '" class="' . $item['class'] . '">
-				<input '.$conditional_value.$conditional_id.' type="radio" id="'. $field->args['_id'] . esc_attr( $value ) . '" name="' . $field->args['_name'] . '" value="' . esc_attr( $value ) . '" ' . $selected . ' class="cmb2-option"><img class="' . $item['class'] . '" style=" width: auto; " alt="' . $item['alt'] . '" src="' . $item['img'] . '">
+			$image_select .= '<li class="cmb2-image-select '.$classes.' '.($selected!= ''?'cmb2-image-select-selected':'').'">
+				<label for="' . $field->args['_id'] . esc_attr( '_' ) . esc_attr( $value ) . '" class="' . $field->args['class'] . '">
+				<input '.$conditional_value.$conditional_id.' type="radio" id="' . $field->args['_id'] . esc_attr( '_' ) . esc_attr( $value ) . '" name="' . $field->args['_name'] . '" value="' . esc_attr( $value ) . '" ' . $selected . ' class="cmb2-option"><img style=" width: auto; " alt="' . $item['alt'] . '" src="' . $item['img'] . '">
 				<br>
+
 				<span>' . esc_html( $item['title'] ) . '</span>
 				</label>
 				</li>';

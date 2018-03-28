@@ -1,7 +1,90 @@
-/* image-select ------------- */
+/* Image Select ------------- */
 .cmb-row.cmb-type-image-select .cmb2-image-select-list{margin: 0 !important; }
 .cmb-row.cmb-type-image-select .cmb2-image-select-list .cmb2-image-select input[type="radio"] { display: none; }
 .cmb-row.cmb-type-image-select .cmb2-image-select-list .cmb2-image-select{ display: inline-block; margin: 0 10px 3px; min-width: 80px; padding: 2px 15px 2px 0; text-align: center; }
 .cmb-row.cmb-type-image-select .cmb2-image-select-list .cmb2-image-select:first-child{margin-left:0} 
-.cmb-row.cmb-type-image-select .cmb2-image-select-list .cmb2-image-select img { border: 4px solid #F1F1F1; }
-.cmb-row.cmb-type-image-select .cmb2-image-select-list .cmb2-image-select.cmb2-image-select-selected img { border-color: #005077; }
+
+/* Bordered Style ------------- */
+
+.cmb-row.cmb-type-image-select .cmb2-image-select-list .cmb2-image-select img {
+    border: 4px solid #F1F1F1;
+}
+
+.cmb-row.cmb-type-image-select .cmb2-image-select-list .cmb2-image-select:not(.checkmarked).cmb2-image-select-selected img {
+    border-color: #006799;
+}
+
+.cmb-row.cmb-type-image-select .cmb2-image-select-list .cmb2-image-select.input-checkmark:not(.bordered) img:hover,
+.cmb-row.cmb-type-image-select .cmb2-image-select-list .input-checkmark:not(.cmb2-image-select-selected) img:hover,
+.cmb-row.cmb-type-image-select .cmb2-image-select-list .cmb2-image-select.input-checkmark:not(.bordered) input.cmb2-image-select-input:checked + label img {
+    border-color: #e0e0e0 !important;
+}
+
+
+/* Checkmark Style ------------- */
+
+
+.checkmark-icon {
+    display: inline-block;
+    position: absolute;
+
+}
+
+.cmb-row.cmb-type-image-select ul.cmb2-image-select-list input.cmb2-image-select-input + label .checkmark-icon:before {
+    content: "";
+    display: block;
+    background: transparent;
+    opacity: 1;
+    position: relative;
+    overflow: hidden;
+    bottom: 20px;
+    right: -20px;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    -webkit-transition: all 0.35s;
+    -moz-transition: all 0.35s;
+    -o-transition: all 0.35s;
+    transition: all 0.25s;
+    width: 0;
+    height: 0;
+}
+
+
+.cmb-row.cmb-type-image-select ul.cmb2-image-select-list input.cmb2-image-select-input:checked + label .checkmark-icon:before {
+    content: "";
+    background: #45bf55;
+    opacity: 1;
+    position: relative;
+    overflow: hidden;
+    bottom: 40px;
+    right: -10px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}
+
+
+.cmb-row.cmb-type-image-select ul.cmb2-image-select-list input.cmb2-image-select-input + label .checkmark-icon:after {
+    content: "\f147";
+    font-family: 'dashicons';
+    font-size: 0.1em;
+    color: transparent;
+    background: transparent;
+    position: absolute;
+    overflow: hidden;
+    top: -24px;
+    right: 0;
+    -webkit-transition: all 0.25s;
+    -moz-transition: all 0.25s;
+    -o-transition: all 0.25s;
+    transition: all 0.25s;
+}
+
+.cmb-row.cmb-type-image-select ul.cmb2-image-select-list input.cmb2-image-select-input:checked + label .checkmark-icon:after {
+    font-size: 2em;
+    color: #fff;
+    position: absolute;
+    top: -24px;
+    right: 0;
+}
